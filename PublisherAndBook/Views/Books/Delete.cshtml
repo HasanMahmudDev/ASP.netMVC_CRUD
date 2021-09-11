@@ -1,0 +1,67 @@
+﻿@model PublisherAndBook.Models.Book
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h3>Confir delete</h3>
+        <div id="placeholder"></div>
+
+
+        <div class="form-group row mb-1">
+            @Html.LabelFor(x => x.BookName, new { @class = "col-form-label col-2" })
+            <div class="col-4">
+                @Html.DisplayFor(x => x.BookName)
+
+            </div>
+        </div>
+        <div class="form-group row mb-1">
+            @Html.LabelFor(x => x.Price, new { @class = "col-form-label col-2" })
+            <div class="col-4">
+                @Html.DisplayFor(x => x.Price)
+            </div>
+        </div>
+        <div class="form-group row mb-1">
+            @Html.LabelFor(x => x.Picture, new { @class = "col-form-label col-2" })
+            <div class="col-4">
+                <img src="~/Uploads/@Model.Picture" class="img-thumbnail" width="40" />
+            </div>
+        </div>
+
+        <div class="form-group row mb-1">
+            @Html.LabelFor(x => x.PublisherId, new { @class = "col-form-label col-2" })
+            <div class="col-4">
+                @Html.DisplayFor(x => x.Publisher.PublisherName)
+            </div>
+        </div>
+        <div class="form-group row my-1 align-middle">
+
+            <div class="col-4 offset-2">
+                <div class="form-check form-check-inline">@Html.CheckBoxFor(x => x.Discontinued, new { @class = "form-check-input ", disabled = "true" })  @Html.LabelFor(x => x.Discontinued, new { @class = "form-check-label" })</div>
+
+
+            </div>
+        </div>
+        @using (Html.BeginForm("Delete", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(x => x.BookId)
+            <div class="form-group row my-1">
+
+                <div class="col-10 offset-2">
+
+                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-12">
+        @Html.ActionLink("Back to list", "Index")
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+}
+

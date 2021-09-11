@@ -1,0 +1,73 @@
+﻿@model IEnumerable<PublisherAndBook.Models.Book>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-12">
+        <h3>Book List</h3>
+        <div class="d-flex justify-content-end mb-1">
+            @Html.ActionLink("Create", "Create", "Books", new { }, new { @class = "btn btn-primary btn-sm" })
+        </div>
+        <table class="table table-hover  table-responsive-sm table-striped table-bordered">
+            <thead class="bg-primary">
+                <tr>
+                    <th>@Html.DisplayNameFor(x => x.Picture)</th>
+                    <th>@Html.DisplayNameFor(x => x.BookName)</th>
+                    <th>@Html.DisplayNameFor(x => x.Price)</th>
+                    <th>@Html.DisplayNameFor(x => x.Publisher)</th>
+                    <th>@Html.DisplayNameFor(x => x.Discontinued)</th>
+                    <th>Edit/Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var b in Model)
+                {
+                    <tr class="align-middle">
+                        <td><img src="~/Uploads/@b.Picture" class="img-thumbnail rounded-circle" width="40" /></td>
+                        <td>@Html.DisplayFor(x => b.BookName)</td>
+                        <td>@Html.DisplayFor(x => b.Price)</td>
+                        <td>@Html.DisplayFor(x => b.Publisher.PublisherName)</td>
+                        <td>@Html.DisplayFor(x => b.Discontinued)</td>
+                        @*<td>@(b.Discontinued ? "Yes": "No")</td>*@
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Books", new { id = b.BookId }, new { @class = "btn btn-success btn-sm" })
+                            @Html.ActionLink("Delete", "Delete", "Books", new { id = b.BookId }, new { @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <ul class="pagination pagination-lg justify-content-end">
+                @if (ViewBag.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", "Books", new { pg = ViewBag.CurrentPage-1 })">&laquo;</a>
+                    </li>
+                }
+                @for (var i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    if (i == ViewBag.CurrentPage)
+                    {
+                        <li class="page-item active">
+                            @Html.ActionLink(i.ToString(), "Index", "Books", new { pg = i }, new { @class = "page-link" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            @Html.ActionLink(i.ToString(), "Index", "Books", new { pg = i }, new { @class = "page-link" })
+                        </li>
+                    }
+                }
+                @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index", "Books", new { pg = ViewBag.CurrentPage+1 })">&raquo;</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+

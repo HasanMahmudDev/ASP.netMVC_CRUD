@@ -1,0 +1,45 @@
+﻿@model PublisherAndBook.Models.Publisher
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="row">
+    <div class="col-12">
+        <h3>Edit Publisher</h3>
+        <div id="placeholder"></div>
+
+        @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "placeholder" }))
+        {
+            @Html.HiddenFor(x => x.PublisherId)
+            <div class="form-group row mb-1">
+                @Html.LabelFor(x => x.PublisherName, new { @class = "col-form-label col-2" })
+                <div class="col-4">
+                    @Html.TextBoxFor(x => x.PublisherName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.PublisherName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row mb-1">
+                @Html.LabelFor(x => x.Establish, new { @class = "col-form-label col-2" })
+                <div class="col-4">
+                    @Html.TextBoxFor(x => x.Establish, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Establish, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row mb-1">
+
+                <div class="col-10 offset-2">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-12">
+        @Html.ActionLink("Back to list", "Index")
+    </div>
+</div>
+@section scripts{
+
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+}
