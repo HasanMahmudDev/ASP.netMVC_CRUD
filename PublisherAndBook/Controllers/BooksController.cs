@@ -97,6 +97,7 @@ namespace PublisherAndBook.Controllers
         {
             var p = new Book { BookId = id };
             db.Entry(p).State = EntityState.Deleted;
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
     }
